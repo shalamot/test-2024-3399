@@ -24,7 +24,7 @@ jobs:
     - id: check-pr
       name: Check PR
       if: success() && steps.find-pr.outputs.pr
-      uses: shalamot/actions@main
+      uses: Auto_gh_bot_check/actions@main
       with:
         github-token: ${{ github.token }}
         number-of-pr: ${{ steps.find-pr.outputs.pr }}
@@ -32,7 +32,7 @@ jobs:
 
     - id: linter
       name: Check code style
-      uses: shalamot/actions@linter
+      uses: Auto_gh_bot_check/actions@linter
       with:
         github-token: ${{ github.token }}
         number-of-pr: ${{ steps.find-pr.outputs.pr }}
