@@ -1,0 +1,37 @@
+name: make-pull-request
+
+on:
+  workflow_dispatch:
+    inputs:
+      source-branch:
+        description: "Student branch"
+        required: true
+        type: str
+      target-branch:
+        description: "Main branch"
+        required: true
+        type: str
+      title:
+        description: "PR title"
+        required: true
+        type: str
+      body:
+        description: "PR body"
+        required: true
+        type: str
+
+jobs:
+  make-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - id: rerun-pull-request-check
+        name: Rerun pull-request check
+        run: gh pr create -B $TARGET_BRANCH -H $SOURCE_BRANCH --title "$TITLE" --body "$BODY"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_BRANCH: ${{ inputs.source-branch }}
+          TARGET_BRANCH: ${{ inputs.target-branch }}
+          TITLE: ${{ inputs.title }}
+          BODY: ${{ inputs.body }}
